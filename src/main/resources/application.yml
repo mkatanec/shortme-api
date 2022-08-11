@@ -1,0 +1,21 @@
+spring:
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    contexts: prod
+    default-schema: short_me
+    liquibase-schema: ${spring.liquibase.default-schema}
+  application:
+    name: short-me
+  jpa:
+    hibernate:
+      ddl-auto: none
+    generate-ddl: false
+    properties:
+      hibernate:
+        default_schema: ${spring.liquibase.default-schema}
+    show-sql: true
+  datasource:
+    driver-class-name: ${DB_DRIVER_NAME:org.h2.Driver}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+    url: ${DB_URL:jdbc:h2:mem:testdb}

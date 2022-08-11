@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" logicalFilePath="db.changelog-master.xml"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="trade_item-20220811-01" author="mkatanec">
+        <comment>
+            Creation of Trade items table and it's sequencer
+        </comment>
+        <createSequence sequenceName="trade_item_id_seq" startValue="1" incrementBy="1" />
+        <createTable tableName="trade_items">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="trade_item_id_seq">
+                <constraints primaryKey="true" primaryKeyName="pk_trade_item" nullable="false" />
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="transaction-20220811-01" author="mkatanec">
+        <comment>
+            Creation of Transaction table and it's sequencer
+        </comment>
+        <createSequence sequenceName="transaction_id_seq" startValue="1" incrementBy="1" />
+        <createTable tableName="transactions">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="transaction_id_seq">
+                <constraints primaryKey="true" primaryKeyName="pk_transaction" nullable="false" />
+            </column>
+            <column name="trade_item_id" type="bigint">
+                <constraints nullable="false" references="trade_items(id)" foreignKeyName="fk_transaction_trade_item" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="short-20220811-01" author="mkatanec">
+        <comment>
+            Creation of Short table and it's sequencer
+        </comment>
+        <createSequence sequenceName="short_id_seq" startValue="1" incrementBy="1" />
+        <createTable tableName="shorts">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="short_id_seq">
+                <constraints primaryKey="true" primaryKeyName="pk_short" nullable="false" />
+            </column>
+            <column name="sell_transaction_id" type="bigint">
+                <constraints nullable="false" references="transactions(id)" foreignKeyName="fk_short_sell_transaction" />
+            </column>
+            <column name="buy_transaction_id" type="bigint">
+                <constraints nullable="true" references="transactions(id)" foreignKeyName="fk_short_buy_transaction" />
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

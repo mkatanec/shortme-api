@@ -1,0 +1,6 @@
+spring:
+  liquibase:
+    contexts: dev
+  h2:
+    console:
+      enabled: true
