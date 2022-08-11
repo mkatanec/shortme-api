@@ -26,10 +26,13 @@ dependencies {
 
   implementation "org.liquibase:liquibase-core"
   implementation 'org.modelmapper:modelmapper:3.1.0'
+  implementation 'net.croz.nrich:nrich-registry-spring-boot-starter:1.4.1'
+
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
 
   compileOnly 'org.projectlombok:lombok'
 
-  runtimeOnly "org.postgresql:postgresql:42.3.4"
+  runtimeOnly 'org.postgresql:postgresql:42.3.6'
   runtimeOnly "com.h2database:h2"
 
   developmentOnly 'org.springframework.boot:spring-boot-devtools'

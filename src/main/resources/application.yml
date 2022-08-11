@@ -19,3 +19,16 @@ spring:
     username: ${DB_USERNAME:sa}
     password: ${DB_PASSWORD:}
     url: ${DB_URL:jdbc:h2:mem:testdb}
+
+nrich:
+  registry:
+    default-converter-enabled: true
+    registry-search:
+      date-format-list: dd.MM.yyyy., dd.MM.yyyy.'T'HH:mm, dd.MM.yyyy.'T'HH:mm'Z'
+      decimal-number-format-list: #0.00, #0,00
+      boolean-true-regex-pattern: ^(?i)\s*(true|yes|da)\s*$
+      boolean-false-regex-pattern: ^(?i)\s*(false|no|ne)\s*$
+    registry-configuration:
+      group-definition-configuration-list:
+        - group-id: DEFAULT
+          include-entity-pattern-list: net.beardy.finance.shortme.entity.registry.*
