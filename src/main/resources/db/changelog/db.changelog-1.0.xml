@@ -30,6 +30,15 @@
             <column name="trade_item_id" type="bigint">
                 <constraints nullable="false" references="trade_items(id)" foreignKeyName="fk_transaction_trade_item" />
             </column>
+            <column name="transaction_type" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+            <column name="trade_item_price" type="decimal">
+                <constraints nullable="false" />
+            </column>
+            <column name="trade_item_amount" type="decimal">
+                <constraints nullable="false" />
+            </column>
         </createTable>
     </changeSet>
 
