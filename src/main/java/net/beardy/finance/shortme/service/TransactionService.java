@@ -4,14 +4,13 @@ import net.beardy.finance.shortme.entity.Transaction;
 import net.beardy.finance.shortme.service.dto.transaction.CreateTransactionCommand;
 import net.beardy.finance.shortme.service.dto.transaction.FindTransactionByQuery;
 import net.beardy.finance.shortme.service.dto.transaction.UpdateTransactionCommand;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface TransactionService {
 
     Transaction findById(Long id);
 
-    List<Transaction> findAll(FindTransactionByQuery query);
+    Page<Transaction> findAll(FindTransactionByQuery query);
 
     Transaction create(CreateTransactionCommand createTransactionCommand);
 

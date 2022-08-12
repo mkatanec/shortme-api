@@ -10,9 +10,8 @@ import net.beardy.finance.shortme.service.TransactionService;
 import net.beardy.finance.shortme.service.dto.transaction.CreateTransactionCommand;
 import net.beardy.finance.shortme.service.dto.transaction.FindTransactionByQuery;
 import net.beardy.finance.shortme.service.dto.transaction.UpdateTransactionCommand;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,8 +30,8 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public List<Transaction> findAll(FindTransactionByQuery query) {
-        return transactionRepository.findAll();
+    public Page<Transaction> findAll(FindTransactionByQuery query) {
+        return transactionRepository.findByQuery(query);
     }
 
     @Override

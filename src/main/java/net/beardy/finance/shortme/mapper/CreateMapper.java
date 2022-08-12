@@ -8,8 +8,8 @@ public interface CreateMapper<T, U> {
 
     U map(T from);
 
-    default List<U> mapToList(Collection<T> list, Class<U> toClass) {
-        return list.stream().map(item -> map(item)).collect(Collectors.toList());
+    default List<U> mapToList(Collection<T> list) {
+        return list.stream().map(this::map).collect(Collectors.toList());
     }
 
 }
