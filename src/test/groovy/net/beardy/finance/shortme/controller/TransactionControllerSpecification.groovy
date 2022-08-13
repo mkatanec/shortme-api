@@ -3,9 +3,9 @@ package net.beardy.finance.shortme.controller
 import net.beardy.finance.shortme.entity.TransactionType
 import net.beardy.finance.shortme.repository.TradeItemRepository
 import net.beardy.finance.shortme.repository.TransactionRepository
-import net.beardy.finance.shortme.util.ControllerSpecification
-import net.beardy.finance.shortme.util.generator.TradeItemGenerator
-import net.beardy.finance.shortme.util.generator.TransactionGenerator
+import net.beardy.finance.shortme.test.util.ControllerSpecification
+import net.beardy.finance.shortme.test.util.generator.TradeItemGenerator
+import net.beardy.finance.shortme.test.util.generator.TransactionGenerator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.test.web.servlet.MockMvc

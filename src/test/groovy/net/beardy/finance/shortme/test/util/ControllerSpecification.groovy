@@ -1,4 +1,4 @@
-package net.beardy.finance.shortme.util
+package net.beardy.finance.shortme.test.util
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Autowired
