@@ -10,7 +10,7 @@ class TransactionGenerator extends Generator {
         id             : id,
         transactionType: TransactionType.BUY,
         tradeItemPrice : 69.42,
-        tradeItemAmount: 69.42,
+        tradeItemAmount: 1,
     ]
   }
 
