@@ -43,7 +43,27 @@ class TransactionControllerSpecification extends ControllerSpecification {
       transactionType == TransactionType.BUY.toString()
       tradeItemName == "tradeItemName"
       tradeItemPrice == 69.42
-      tradeItemAmount == 69.42
+      tradeItemAmount == 1
+      oneSuggestion:
+      [
+          price == 34.705,
+          amount == 2,
+      ]
+      twoSuggestion:
+      [
+          price == 23.13666,
+          amount == 3,
+      ]
+      onePercentSuggestion:
+      [
+          price == 68.72277,
+          amount == 1.01,
+      ]
+      tenPercentSuggestion:
+      [
+          price == 63.1,
+          amount == 1.1,
+      ]
     }
   }
 

@@ -2,8 +2,10 @@ package net.beardy.finance.shortme.controller;
 
 import lombok.RequiredArgsConstructor;
 import net.beardy.finance.shortme.controller.response.PageInfo;
+import net.beardy.finance.shortme.controller.response.TransactionDetailsResponse;
 import net.beardy.finance.shortme.controller.response.TransactionResponse;
 import net.beardy.finance.shortme.entity.Transaction;
+import net.beardy.finance.shortme.mapper.CreateMapper;
 import net.beardy.finance.shortme.mapper.GenericCreateMapper;
 import net.beardy.finance.shortme.service.TransactionService;
 import net.beardy.finance.shortme.service.dto.transaction.CreateTransactionCommand;
@@ -27,6 +29,8 @@ public class TransactionController {
 
     private final TransactionService transactionService;
 
+    private final CreateMapper<Transaction, TransactionDetailsResponse> transactionDetailsResponseCreateMapper;
+
     private final GenericCreateMapper genericCreateMapper;
 
     @GetMapping
@@ -39,8 +43,8 @@ public class TransactionController {
     }
 
     @GetMapping("/{id}")
-    public TransactionResponse findById(@PathVariable Long id) {
-        return genericCreateMapper.map(transactionService.findById(id), TransactionResponse.class);
+    public TransactionDetailsResponse findById(@PathVariable Long id) {
+        return transactionDetailsResponseCreateMapper.map(transactionService.findById(id));
     }
 
     @PostMapping
