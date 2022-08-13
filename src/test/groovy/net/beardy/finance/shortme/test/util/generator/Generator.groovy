@@ -1,4 +1,4 @@
-package net.beardy.finance.shortme.util.generator
+package net.beardy.finance.shortme.test.util.generator
 
 import org.modelmapper.ModelMapper
 import org.modelmapper.convention.MatchingStrategies

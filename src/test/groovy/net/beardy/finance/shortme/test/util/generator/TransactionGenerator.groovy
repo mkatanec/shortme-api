@@ -1,4 +1,4 @@
-package net.beardy.finance.shortme.util.generator
+package net.beardy.finance.shortme.test.util.generator
 
 import net.beardy.finance.shortme.entity.Transaction
 import net.beardy.finance.shortme.entity.TransactionType
