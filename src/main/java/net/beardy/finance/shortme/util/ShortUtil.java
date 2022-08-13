@@ -1,5 +1,7 @@
 package net.beardy.finance.shortme.util;
 
+import net.beardy.finance.shortme.util.dto.ShortCalculationResponse;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -8,6 +10,17 @@ public final class ShortUtil {
 
     public ShortUtil() {
         throw new UnsupportedOperationException("Utility class");
+    }
+
+    public static ShortCalculationResponse calculateShort(BigDecimal sellPrice, BigDecimal sellAmount,
+        BigDecimal profit) {
+        final BigDecimal dollarAmount = sellPrice.multiply(sellAmount);
+
+        final BigDecimal buyAmount = ShortUtil.numberAdder(sellAmount, profit);
+
+        final MathContext mathContext = new MathContext(7, RoundingMode.HALF_EVEN);
+
+        return new ShortCalculationResponse(dollarAmount.divide(buyAmount, mathContext), buyAmount);
     }
 
     public static BigDecimal numberAdder(BigDecimal value, BigDecimal amountToAdd) {
