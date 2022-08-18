@@ -20,27 +20,29 @@ repositories {
 }
 
 dependencies {
-  annotationProcessor 'org.projectlombok:lombok'
+  annotationProcessor "org.hibernate:hibernate-jpamodelgen"
+  annotationProcessor "org.projectlombok:lombok"
+  annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
-  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation "org.springframework.boot:spring-boot-starter-web"
   implementation "org.springframework.boot:spring-boot-starter-data-jpa"
 
   implementation "org.liquibase:liquibase-core"
-  implementation 'org.modelmapper:modelmapper:3.1.0'
-  implementation 'net.croz.nrich:nrich-registry-spring-boot-starter:1.4.1'
+  implementation "org.modelmapper:modelmapper:3.1.0"
+  implementation "net.croz.nrich:nrich-registry-spring-boot-starter:1.4.1"
 
-  implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+  implementation "com.fasterxml.jackson.core:jackson-databind:2.13.3"
 
-  compileOnly 'org.projectlombok:lombok'
+  compileOnly "org.projectlombok:lombok"
 
-  runtimeOnly 'org.postgresql:postgresql:42.3.6'
+  runtimeOnly "org.postgresql:postgresql:42.3.6"
   runtimeOnly "com.h2database:h2"
 
-  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+  developmentOnly "org.springframework.boot:spring-boot-devtools"
 
-  testImplementation 'org.spockframework:spock-core:2.1-groovy-3.0'
-  testImplementation 'org.spockframework:spock-spring:2.1-groovy-3.0'
-  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation "org.spockframework:spock-core:2.1-groovy-3.0"
+  testImplementation "org.spockframework:spock-spring:2.1-groovy-3.0"
+  testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 
 tasks.named('test') {

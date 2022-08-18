@@ -33,10 +33,10 @@
             <column name="transaction_type" type="varchar(20)">
                 <constraints nullable="false" />
             </column>
-            <column name="trade_item_price" type="decimal">
+            <column name="trade_item_price" type="decimal(20, 10)">
                 <constraints nullable="false" />
             </column>
-            <column name="trade_item_amount" type="decimal">
+            <column name="trade_item_amount" type="decimal(20, 10)">
                 <constraints nullable="false" />
             </column>
         </createTable>

@@ -35,7 +35,7 @@ public final class ShortUtil {
         final int roundingScale = (int) Math.log10(normalizer.doubleValue());
         final MathContext mathContext = new MathContext(roundingScale, RoundingMode.HALF_EVEN);
 
-        final BigDecimal valueToAdd = BigDecimal.ONE.divide(normalizer, mathContext);
+        final BigDecimal valueToAdd = amountToAdd.divide(normalizer, mathContext);
 
         if (hasDecimalPlaces(amountToAdd)) {
             return value.multiply(amountToAdd.add(BigDecimal.ONE)).setScale(roundingScale, RoundingMode.HALF_EVEN);
