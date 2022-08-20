@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,12 +49,12 @@ public class TransactionController {
     }
 
     @PostMapping
-    public TransactionResponse create(CreateTransactionCommand createTransactionCommand) {
+    public TransactionResponse create(@RequestBody CreateTransactionCommand createTransactionCommand) {
         return genericCreateMapper.map(transactionService.create(createTransactionCommand), TransactionResponse.class);
     }
 
     @PutMapping("/{id}")
-    public TransactionResponse update(UpdateTransactionCommand updateTransactionCommand) {
+    public TransactionResponse update(@RequestBody UpdateTransactionCommand updateTransactionCommand) {
         return genericCreateMapper.map(transactionService.update(updateTransactionCommand), TransactionResponse.class);
     }
 
