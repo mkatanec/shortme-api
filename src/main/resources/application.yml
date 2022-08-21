@@ -18,7 +18,7 @@ spring:
         default_schema: ${spring.liquibase.default-schema}
     show-sql: true
   datasource:
-    driver-class-name: ${DB_DRIVER_NAME:org.h2.Driver}
+    driver-class-name: ${DB_DRIVER:org.h2.Driver}
     username: ${DB_USERNAME:sa}
     password: ${DB_PASSWORD:}
     url: ${DB_URL:jdbc:h2:mem:testdb}
