@@ -1,7 +1,7 @@
 package net.beardy.finance.shortme.entity;
 
 import lombok.Data;
-import net.beardy.finance.shortme.entity.registry.TradeItem;
+import net.beardy.finance.shortme.entity.registry.TradingPair;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -29,11 +29,11 @@ public class Transaction {
     private TransactionType transactionType;
 
     @ManyToOne
-    @JoinColumn(name = "trade_item_id")
-    private TradeItem tradeItem;
+    @JoinColumn(name = "trading_pair_id")
+    private TradingPair tradingPair;
 
-    private BigDecimal tradeItemPrice;
+    private BigDecimal tradingPairPrice;
 
-    private BigDecimal tradeItemAmount;
+    private BigDecimal tradingPairAmount;
 
 }

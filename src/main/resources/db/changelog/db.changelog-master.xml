@@ -6,7 +6,7 @@
     <include file="db.changelog-1.0.xml" relativeToChangelogFile="true" />
 
     <changeSet id="initial_data" author="mkatanec" context="dev">
-        <sqlFile path="sql/initial-data-trade_item.sql" relativeToChangelogFile="true" />
+        <sqlFile path="sql/initial-data-trading_pair.sql" relativeToChangelogFile="true" />
         <sqlFile path="sql/initial-data-transaction.sql" relativeToChangelogFile="true" />
     </changeSet>
 

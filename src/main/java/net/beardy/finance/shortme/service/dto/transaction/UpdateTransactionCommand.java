@@ -12,10 +12,10 @@ public class UpdateTransactionCommand {
 
     private TransactionType transactionType;
 
-    private Long tradeItemId;
+    private Long tradingPairId;
 
-    private BigDecimal tradeItemPrice;
+    private BigDecimal tradingPairPrice;
 
-    private BigDecimal tradeItemAmount;
+    private BigDecimal tradingPairAmount;
 
 }

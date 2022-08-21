@@ -7,10 +7,10 @@ class TransactionGenerator extends Generator {
 
   static Closure FULL = { Long id ->
     [
-        id             : id,
-        transactionType: TransactionType.BUY,
-        tradeItemPrice : 69.42,
-        tradeItemAmount: 1,
+        id               : id,
+        transactionType  : TransactionType.BUY,
+        tradingPairPrice : 69.42,
+        tradingPairAmount: 1,
     ]
   }
 

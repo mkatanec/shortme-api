@@ -12,10 +12,10 @@ public class TransactionResponse {
 
     private TransactionType transactionType;
 
-    private String tradeItemName;
+    private String tradingPairName;
 
-    private BigDecimal tradeItemPrice;
+    private BigDecimal tradingPairPrice;
 
-    private BigDecimal tradeItemAmount;
+    private BigDecimal tradingPairAmount;
 
 }

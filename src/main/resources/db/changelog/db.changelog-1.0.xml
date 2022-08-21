@@ -3,16 +3,19 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet id="trade_item-20220811-01" author="mkatanec">
+    <changeSet id="trading_pair-20220811-01" author="mkatanec">
         <comment>
-            Creation of Trade items table and it's sequencer
+            Creation of Trading pairs table and it's sequencer
         </comment>
-        <createSequence sequenceName="trade_item_id_seq" startValue="1" incrementBy="1" />
-        <createTable tableName="trade_items">
-            <column name="id" type="BIGINT" defaultValueSequenceNext="trade_item_id_seq">
-                <constraints primaryKey="true" primaryKeyName="pk_trade_item" nullable="false" />
+        <createSequence sequenceName="trading_pair_id_seq" startValue="1" incrementBy="1" />
+        <createTable tableName="trading_pairs">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="trading_pair_id_seq">
+                <constraints primaryKey="true" primaryKeyName="pk_trading_pair" nullable="false" />
             </column>
             <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="fee" type="decimal(20, 10)">
                 <constraints nullable="false" />
             </column>
         </createTable>
@@ -27,16 +30,16 @@
             <column name="id" type="BIGINT" defaultValueSequenceNext="transaction_id_seq">
                 <constraints primaryKey="true" primaryKeyName="pk_transaction" nullable="false" />
             </column>
-            <column name="trade_item_id" type="bigint">
-                <constraints nullable="false" references="trade_items(id)" foreignKeyName="fk_transaction_trade_item" />
+            <column name="trading_pair_id" type="bigint">
+                <constraints nullable="false" references="trading_pairs(id)" foreignKeyName="fk_transaction_trading_pair" />
             </column>
             <column name="transaction_type" type="varchar(20)">
                 <constraints nullable="false" />
             </column>
-            <column name="trade_item_price" type="decimal(20, 10)">
+            <column name="trading_pair_price" type="decimal(20, 10)">
                 <constraints nullable="false" />
             </column>
-            <column name="trade_item_amount" type="decimal(20, 10)">
+            <column name="trading_pair_amount" type="decimal(20, 10)">
                 <constraints nullable="false" />
             </column>
         </createTable>

@@ -13,14 +13,22 @@ public final class ShortUtil {
     }
 
     public static ShortCalculationResponse calculateShort(BigDecimal sellPrice, BigDecimal sellAmount,
-        BigDecimal profit) {
+        BigDecimal profit, BigDecimal fee) {
         final BigDecimal dollarAmount = sellPrice.multiply(sellAmount);
 
         final BigDecimal buyAmount = ShortUtil.numberAdder(sellAmount, profit);
 
         final MathContext mathContext = new MathContext(7, RoundingMode.HALF_EVEN);
 
-        return new ShortCalculationResponse(dollarAmount.divide(buyAmount, mathContext), buyAmount);
+        final BigDecimal feeDebuffer = BigDecimal.ONE.subtract(fee.multiply(new BigDecimal(2)));
+        final BigDecimal price = dollarAmount.multiply(feeDebuffer).divide(buyAmount, mathContext);
+
+        return new ShortCalculationResponse(price, buyAmount);
+    }
+
+    public static ShortCalculationResponse calculateShort(BigDecimal sellPrice, BigDecimal sellAmount,
+        BigDecimal profit) {
+        return calculateShort(sellPrice, sellAmount, profit, BigDecimal.ZERO);
     }
 
     public static BigDecimal numberAdder(BigDecimal value, BigDecimal amountToAdd) {
@@ -35,11 +43,11 @@ public final class ShortUtil {
         final int roundingScale = (int) Math.log10(normalizer.doubleValue());
         final MathContext mathContext = new MathContext(roundingScale, RoundingMode.HALF_EVEN);
 
-        final BigDecimal valueToAdd = amountToAdd.divide(normalizer, mathContext);
-
         if (hasDecimalPlaces(amountToAdd)) {
             return value.multiply(amountToAdd.add(BigDecimal.ONE)).setScale(roundingScale, RoundingMode.HALF_EVEN);
         }
+
+        final BigDecimal valueToAdd = amountToAdd.divide(normalizer, mathContext);
 
         return value.add(valueToAdd);
     }

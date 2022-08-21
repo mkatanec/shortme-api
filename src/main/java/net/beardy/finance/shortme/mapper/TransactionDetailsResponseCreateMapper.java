@@ -3,6 +3,7 @@ package net.beardy.finance.shortme.mapper;
 import lombok.RequiredArgsConstructor;
 import net.beardy.finance.shortme.controller.response.ShortSuggestion;
 import net.beardy.finance.shortme.controller.response.TransactionDetailsResponse;
+import net.beardy.finance.shortme.controller.response.TransactionResponse;
 import net.beardy.finance.shortme.entity.Transaction;
 import net.beardy.finance.shortme.util.ShortUtil;
 import net.beardy.finance.shortme.util.dto.ShortCalculationResponse;
@@ -18,17 +19,18 @@ public class TransactionDetailsResponseCreateMapper implements CreateMapper<Tran
 
     @Override
     public TransactionDetailsResponse map(Transaction from) {
+        final TransactionResponse transactionResponse = genericCreateMapper.map(from, TransactionResponse.class);
         final TransactionDetailsResponse transactionDetailsResponse =
-            genericCreateMapper.map(from, TransactionDetailsResponse.class);
+            genericCreateMapper.map(transactionResponse, TransactionDetailsResponse.class);
 
         final ShortCalculationResponse oneShortCalculationResponse =
-            ShortUtil.calculateShort(from.getTradeItemPrice(), from.getTradeItemAmount(), BigDecimal.ONE);
+            ShortUtil.calculateShort(from.getTradingPairPrice(), from.getTradingPairAmount(), BigDecimal.ONE);
         final ShortCalculationResponse twoShortCalculationResponse =
-            ShortUtil.calculateShort(from.getTradeItemPrice(), from.getTradeItemAmount(), new BigDecimal(2));
+            ShortUtil.calculateShort(from.getTradingPairPrice(), from.getTradingPairAmount(), new BigDecimal(2));
         final ShortCalculationResponse onePercentShortCalculationResponse =
-            ShortUtil.calculateShort(from.getTradeItemPrice(), from.getTradeItemAmount(), new BigDecimal("0.01"));
+            ShortUtil.calculateShort(from.getTradingPairPrice(), from.getTradingPairAmount(), new BigDecimal("0.01"));
         final ShortCalculationResponse tenPercentShortCalculationResponse =
-            ShortUtil.calculateShort(from.getTradeItemPrice(), from.getTradeItemAmount(), new BigDecimal("0.1"));
+            ShortUtil.calculateShort(from.getTradingPairPrice(), from.getTradingPairAmount(), new BigDecimal("0.1"));
 
         transactionDetailsResponse.setOneSuggestion(
             genericCreateMapper.map(oneShortCalculationResponse, ShortSuggestion.class));

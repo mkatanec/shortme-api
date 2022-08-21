@@ -35,19 +35,21 @@ class ShortUtilSpecification extends Specification {
     new BigDecimal(24000)      | BigDecimal.ONE         || new BigDecimal(24001)
     new BigDecimal("24000.00") | BigDecimal.ONE         || new BigDecimal(24001)
     new BigDecimal("0.00208")  | new BigDecimal("0.01") || new BigDecimal("0.0021")
+    new BigDecimal("0.00202")  | new BigDecimal("0.01") || new BigDecimal("0.00204")
     new BigDecimal("12.08")    | new BigDecimal("0.01") || new BigDecimal("12.2")
     new BigDecimal(24000)      | new BigDecimal("0.01") || new BigDecimal(24240)
     new BigDecimal("24000.00") | new BigDecimal("0.01") || new BigDecimal(24240)
   }
 
-  def "given [sellPrice: #sellPrice, sellAmount: #sellAmount, profit: #profit] should return #result"() {
+  def "given [sellPrice: #sellPrice, sellAmount: #sellAmount, profit: #profit, fee: #fee] should return #result"() {
     given:
     def bigDecimalSellPrice = new BigDecimal(sellPrice)
     def bigDecimalSellAmount = new BigDecimal(sellAmount)
     def bigDecimalProfit = new BigDecimal(profit)
+    def bigDecimalFee = new BigDecimal(fee)
 
     when:
-    def response = ShortUtil.calculateShort(bigDecimalSellPrice, bigDecimalSellAmount, bigDecimalProfit)
+    def response = ShortUtil.calculateShort(bigDecimalSellPrice, bigDecimalSellAmount, bigDecimalProfit, bigDecimalFee)
 
     then:
     verifyAll(response) {
@@ -56,9 +58,9 @@ class ShortUtilSpecification extends Specification {
     }
 
     where:
-    sellPrice | sellAmount | profit || result
-    "24000"   | "0.00202"  | "1"    || ["price": new BigDecimal("23881.77"), "amount": new BigDecimal("0.00203")]
-    "2000"    | "0.015"    | "1"    || ["price": new BigDecimal("1875"), "amount": new BigDecimal("0.016")]
+    sellPrice | sellAmount | profit | fee         || result
+    "24000"   | "0.00202"  | "1"    | "0"         || ["price": new BigDecimal("23881.77"), "amount": new BigDecimal("0.00203")]
+    "24000"   | "0.00202"  | "0.01" | "0.0000075" || ["price": new BigDecimal("23764.35"), "amount": new BigDecimal("0.00204")]
   }
 
 }

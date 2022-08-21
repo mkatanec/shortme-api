@@ -1,10 +1,10 @@
 package net.beardy.finance.shortme.controller
 
 import net.beardy.finance.shortme.entity.TransactionType
-import net.beardy.finance.shortme.repository.TradeItemRepository
+import net.beardy.finance.shortme.repository.TradingPairRepository
 import net.beardy.finance.shortme.repository.TransactionRepository
 import net.beardy.finance.shortme.test.util.ControllerSpecification
-import net.beardy.finance.shortme.test.util.generator.TradeItemGenerator
+import net.beardy.finance.shortme.test.util.generator.TradingPairGenerator
 import net.beardy.finance.shortme.test.util.generator.TransactionGenerator
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -20,15 +20,15 @@ class TransactionControllerSpecification extends ControllerSpecification {
   private MockMvc mockMvc
 
   @Autowired
-  private TradeItemRepository tradeItemRepository
+  private TradingPairRepository tradingPairRepository
 
   @Autowired
   private TransactionRepository transactionRepository
 
   def "GET /transactions/1 should return transaction"() {
     when:
-    def tradeItem = tradeItemRepository.save(TradeItemGenerator.tradeItem(1L))
-    transactionRepository.save(TransactionGenerator.transaction(1L, ["tradeItem": tradeItem]))
+    def tradingPair = tradingPairRepository.save(TradingPairGenerator.tradingPair(1L))
+    transactionRepository.save(TransactionGenerator.transaction(1L, ["tradingPair": tradingPair]))
 
     def response = mockMvc.perform(get("/transactions/1")).andReturn().response
 
@@ -41,9 +41,9 @@ class TransactionControllerSpecification extends ControllerSpecification {
     verifyAll(body) {
       id == 1
       transactionType == TransactionType.BUY.toString()
-      tradeItemName == "tradeItemName"
-      tradeItemPrice == 69.42
-      tradeItemAmount == 1
+      tradingPairName == "BTC/BUSD"
+      tradingPairPrice == 69.42
+      tradingPairAmount == 1
       oneSuggestion:
       [
           price == 34.705,
@@ -69,8 +69,8 @@ class TransactionControllerSpecification extends ControllerSpecification {
 
   def "GET /transactions should return transaction"() {
     when:
-    def tradeItem = tradeItemRepository.save(TradeItemGenerator.tradeItem(1L))
-    transactionRepository.save(TransactionGenerator.transaction(1L, ["tradeItem": tradeItem]))
+    def tradingPair = tradingPairRepository.save(TradingPairGenerator.tradingPair(1L))
+    transactionRepository.save(TransactionGenerator.transaction(1L, ["tradingPair": tradingPair]))
 
     def response = mockMvc.perform(
         get("/transactions")

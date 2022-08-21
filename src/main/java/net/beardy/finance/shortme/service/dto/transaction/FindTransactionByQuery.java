@@ -10,7 +10,7 @@ public class FindTransactionByQuery {
 
     private List<TransactionType> transactionTypes;
 
-    private List<Long> tradeItems;
+    private List<Long> tradingPairs;
 
     private int pageIndex = 0;
 

@@ -3,7 +3,7 @@ package net.beardy.finance.shortme.specification;
 import net.beardy.finance.shortme.entity.Transaction;
 import net.beardy.finance.shortme.entity.TransactionType;
 import net.beardy.finance.shortme.entity.Transaction_;
-import net.beardy.finance.shortme.entity.registry.TradeItem_;
+import net.beardy.finance.shortme.entity.registry.TradingPair_;
 import net.beardy.finance.shortme.service.dto.transaction.FindTransactionByQuery;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -30,8 +30,8 @@ public final class TransactionSpecification {
                 predicates.add(getTransactionType(query.getTransactionTypes(), transaction));
             }
 
-            if (Objects.nonNull(query.getTradeItems())) {
-                predicates.add(getTradeItem(query.getTradeItems(), transaction));
+            if (Objects.nonNull(query.getTradingPairs())) {
+                predicates.add(getTradingPair(query.getTradingPairs(), transaction));
             }
 
             if (predicates.isEmpty()) {
@@ -48,10 +48,10 @@ public final class TransactionSpecification {
         return transactionTypePath.in(transactionTypes);
     }
 
-    public static Predicate getTradeItem(List<Long> tradeItemIds, Root<Transaction> transaction) {
-        final Expression<Long> transactionTypePath = transaction.get(Transaction_.TRADE_ITEM).get(TradeItem_.ID);
+    public static Predicate getTradingPair(List<Long> tradingPairIds, Root<Transaction> transaction) {
+        final Expression<Long> transactionTypePath = transaction.get(Transaction_.TRADING_PAIR).get(TradingPair_.ID);
 
-        return transactionTypePath.in(tradeItemIds);
+        return transactionTypePath.in(tradingPairIds);
     }
 
 }
