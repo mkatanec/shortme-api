@@ -7,11 +7,15 @@ import net.beardy.finance.shortme.controller.response.TransactionResponse;
 import net.beardy.finance.shortme.entity.Transaction;
 import net.beardy.finance.shortme.mapper.CreateMapper;
 import net.beardy.finance.shortme.mapper.GenericCreateMapper;
+import net.beardy.finance.shortme.mapper.Pair;
+import net.beardy.finance.shortme.service.SuggestionService;
 import net.beardy.finance.shortme.service.TransactionService;
+import net.beardy.finance.shortme.service.dto.suggestion.AutomatedSuggestions;
 import net.beardy.finance.shortme.service.dto.transaction.CreateTransactionCommand;
 import net.beardy.finance.shortme.service.dto.transaction.FindTransactionByQuery;
 import net.beardy.finance.shortme.service.dto.transaction.UpdateTransactionCommand;
 import org.springframework.data.domain.Page;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,9 +32,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TransactionController {
 
+    private final SuggestionService suggestionService;
+
     private final TransactionService transactionService;
 
-    private final CreateMapper<Transaction, TransactionDetailsResponse> transactionDetailsResponseCreateMapper;
+    private final CreateMapper<Pair<Transaction, AutomatedSuggestions>, TransactionDetailsResponse>
+        transactionDetailsResponseCreateMapper;
 
     private final GenericCreateMapper genericCreateMapper;
 
@@ -45,16 +52,19 @@ public class TransactionController {
 
     @GetMapping("/{id}")
     public TransactionDetailsResponse findById(@PathVariable Long id) {
-        return transactionDetailsResponseCreateMapper.map(transactionService.findById(id));
+        final Transaction transaction = transactionService.findById(id);
+        final AutomatedSuggestions automatedSuggestions = suggestionService.getSuggestions(transaction);
+
+        return transactionDetailsResponseCreateMapper.map(new Pair<>(transaction, automatedSuggestions));
     }
 
     @PostMapping
-    public TransactionResponse create(@RequestBody CreateTransactionCommand createTransactionCommand) {
+    public TransactionResponse create(@Validated @RequestBody CreateTransactionCommand createTransactionCommand) {
         return genericCreateMapper.map(transactionService.create(createTransactionCommand), TransactionResponse.class);
     }
 
     @PutMapping("/{id}")
-    public TransactionResponse update(@RequestBody UpdateTransactionCommand updateTransactionCommand) {
+    public TransactionResponse update(@Validated @RequestBody UpdateTransactionCommand updateTransactionCommand) {
         return genericCreateMapper.map(transactionService.update(updateTransactionCommand), TransactionResponse.class);
     }
 

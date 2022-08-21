@@ -23,4 +23,8 @@ abstract class ControllerSpecification extends Specification {
     objectMapper.readValue(response.contentAsString, cls)
   }
 
+  String json(Object body) {
+    objectMapper.writeValueAsString(body)
+  }
+
 }
